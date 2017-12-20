@@ -1,0 +1,12 @@
+= Code Valet Master
+
+This repository contains the script and code necessary to build a Docker image
+with a link:https://jenkins.io/[Jenkins] master and the necessary plugins for
+it to operate.
+
+This code was originally located in the
+link:https://github.com/codevalet/codevalet[codevalet/codevalet] repository but
+has since been moved out to allow for more independent iteration on the master
+image itself.
+
+
