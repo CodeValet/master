@@ -87,7 +87,7 @@ RUN for f in /usr/share/jenkins/ref/userContent/*.txt; do mv $f $f.override ; do
 
 # Prepare the nginx instance itself
 ################################################################################
-COPY nginx.master.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 ################################################################################
 
 # Prepare the supervisor script to run nginx and Jenkins inside the container

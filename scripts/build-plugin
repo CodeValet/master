@@ -19,7 +19,8 @@ fi;
 
 # Ensure ~/.m2 exists to avoid letting the Docker daemon create the directory
 # owned by the root user
-mkdir -p $HOME/.m2 $HOME/.npm $HOME/.cache
+mkdir -p $HOME/.m2 $HOME/.npm $HOME/.cache $HOME/.config $HOME/.yarn
+
 
 pushd $1
   if [ -f pom.xml ]; then
@@ -27,9 +28,11 @@ pushd $1
     exec docker run --rm ${TTY} \
                   -u $(id -u):$(id -g) \
                   -e MAVEN_CONFIG=/var/maven/.m2 \
+                  -v $HOME/.m2:/var/maven/.m2 \
                   -v $HOME/.npm:/.npm \
                   -v $HOME/.cache:/.cache \
-                  -v $HOME/.m2:/var/maven/.m2 \
+                  -v $HOME/.config:/.config \
+                  -v $HOME/.yarn:/.yarn \
                   -v $PWD:/data \
                   -w /data \
                   ${BUILDER_CONTAINER} \
