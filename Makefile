@@ -18,7 +18,7 @@ builder: Dockerfile.builder
 master: Dockerfile build/git-refs.txt agent-templates
 	docker build -t ${IMAGE_PREFIX}-$@  .
 
-plugins: ./scripts/build-plugins plugins.txt builder
+plugins: ./scripts/build-plugins plugins.yml builder
 	./scripts/build-plugins
 
 build/git-refs.txt: plugins

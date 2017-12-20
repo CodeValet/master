@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 BUILDER_CONTAINER="rtyler/codevalet-builder"
 
@@ -17,13 +17,22 @@ if [ $? -eq 0 ]; then
     TTY="-ti"
 fi;
 
+# Ensure ~/.m2 exists to avoid letting the Docker daemon create the directory
+# owned by the root user
+mkdir -p $HOME/.m2 $HOME/.npm $HOME/.cache
+
 pushd $1
   if [ -f pom.xml ]; then
     echo ">> Building ${1}"
     exec docker run --rm ${TTY} \
-                  -v $HOME/.m2:/root/.m2 \
+                  -u $(id -u):$(id -g) \
+                  -e MAVEN_CONFIG=/var/maven/.m2 \
+                  -v $HOME/.npm:/.npm \
+                  -v $HOME/.cache:/.cache \
+                  -v $HOME/.m2:/var/maven/.m2 \
                   -v $PWD:/data \
                   -w /data \
-                  ${BUILDER_CONTAINER} mvn install -e -B -DskipTests
+                  ${BUILDER_CONTAINER} \
+                  mvn -Duser.home=/var/maven -e -B -U -DskipTests install
   fi;
 popd

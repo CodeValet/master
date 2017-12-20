@@ -1,5 +1,7 @@
 #!/bin/sh
 
+ROOTDIR=$(realpath $(dirname $0)/../)
+
 tty --quiet
 
 if [ $? -eq 0 ]; then
@@ -7,6 +9,6 @@ if [ $? -eq 0 ]; then
 fi;
 
 exec docker run --rm ${TTY} \
-    -v ${PWD}:${PWD} \
-    -w ${PWD} \
+    -v ${ROOTDIR}:${ROOTDIR} \
+    -w ${ROOTDIR} \
     ruby:2-alpine $@

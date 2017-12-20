@@ -5,6 +5,7 @@ REPOS_DIR=$BUILD_DIR/repos
 SCRIPTS_DIR=$(realpath $(dirname $0))
 PLUGINS_OUTPUT_DIR=$BUILD_DIR/plugins
 BUILDER_CONTAINER="rtyler/codevalet-builder"
+PATH=${SCRIPTS_DIR}:$PATH
 
 mkdir -p $REPOS_DIR
 mkdir -p $PLUGINS_OUTPUT_DIR
@@ -52,9 +53,10 @@ pushd $REPOS_DIR
   # https://issues.jenkins-ci.org/browse/JENKINS-45668
   (cd js-libs-plugin && find . -maxdepth 1 -type d -exec mkdir -p {}/src/main/webapp/jsmodules \;)
 
-
-  for plugin in $(${SCRIPTS_DIR}/plugins-from-yaml $SCRIPTS_DIR/../plugins.yml); do
-    cloneWithDependencies $plugin
+  # Pipeling /dev/null into stdin for Docker to avoid stupidity with the tty, see:
+  # https://github.com/moby/moby/issues/8513
+  for plugin in $(${SCRIPTS_DIR}/plugins-from-yaml $SCRIPTS_DIR/../plugins.yml < /dev/null); do
+    cloneWithDependencies "${plugin}"
   done;
 
   # This was merged into the blueocean-plugin repository but still exists as a tombstone
@@ -63,7 +65,7 @@ pushd $REPOS_DIR
   set -e
 
   for d in *-plugin; do
-      ./scripts/build-plugin $d
+      ${SCRIPTS_DIR}/build-plugin $d
   done;
 
   set +e
