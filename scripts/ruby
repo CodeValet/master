@@ -1,0 +1,6 @@
+#!/bin/sh
+
+exec docker run --rm \
+    -v ${PWD}:${PWD} \
+    -w ${PWD} \
+    ruby:2-alpine $@
