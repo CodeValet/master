@@ -1,0 +1,16 @@
+---
+plugins:
+  - repo: 'workflow-aggregator-plugin'
+    ref: 'master'
+  - repo: 'blueocean-plugin'
+    ref: 'master'
+  - repo: 'github-oauth-plugin'
+    ref: 'master'
+  - repo: 'azure-vm-agents-plugin'
+    ref: 'master'
+  - repo: 'matrix-auth-plugin'
+    ref: 'master'
+  - repo: 'embeddable-build-status-plugin'
+    ref: 'master'
+  - repo: 'sentry-plugin'
+    ref: 'master'

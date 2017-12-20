@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'yaml'
+
+raise 'A file must be given as the first argument' if ARGV.size != 1
+
+data = YAML.load(File.read(ARGV.first))
+
+# By default we'll just output the names so we can easily loop over this in the
+# shell
+data['plugins'].each do |plugin|
+  puts plugin['repo']
+end

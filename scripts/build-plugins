@@ -53,7 +53,7 @@ pushd $REPOS_DIR
   (cd js-libs-plugin && find . -maxdepth 1 -type d -exec mkdir -p {}/src/main/webapp/jsmodules \;)
 
 
-  for plugin in $(cat $SCRIPTS_DIR/../plugins.txt); do
+  for plugin in $(${SCRIPTS_DIR}/plugins-from-yaml $SCRIPTS_DIR/../plugins.yml); do
     cloneWithDependencies $plugin
   done;
 
@@ -61,17 +61,11 @@ pushd $REPOS_DIR
   rm -rf blueocean-pipeline-editor-plugin
 
   set -e
-  for d in *-plugin; do
-      pushd $d
 
-        if [ -f pom.xml ]; then
-          echo ">> Building $d"
-          git pull --rebase
-          docker run --rm ${TTY_ARGS} -v $HOME/.m2:/root/.m2 \
-            -v $PWD:/data -w /data ${BUILDER_CONTAINER} mvn install -e -B -DskipTests
-        fi;
-      popd
+  for d in *-plugin; do
+      ./scripts/build-plugin $d
   done;
+
   set +e
 
   # Handle an old tombstoned dependency which will not build from source

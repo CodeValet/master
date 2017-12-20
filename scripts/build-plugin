@@ -1,0 +1,29 @@
+#!/bin/sh
+
+BUILDER_CONTAINER="rtyler/codevalet-builder"
+
+if [ "${1}" = "" ]; then
+  echo "The path to a plugin must be passed as the first argument";
+  exit 1;
+fi;
+
+if [ ! -d $1 ]; then
+  echo "The path \`${1}\` is not a directory";
+  exit 1;
+fi;
+
+tty --quiet
+if [ $? -eq 0 ]; then
+    TTY="-ti"
+fi;
+
+pushd $1
+  if [ -f pom.xml ]; then
+    echo ">> Building ${1}"
+    exec docker run --rm ${TTY} \
+                  -v $HOME/.m2:/root/.m2 \
+                  -v $PWD:/data \
+                  -w /data \
+                  ${BUILDER_CONTAINER} mvn install -e -B -DskipTests
+  fi;
+popd

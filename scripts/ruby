@@ -1,6 +1,12 @@
 #!/bin/sh
 
-exec docker run --rm \
+tty --quiet
+
+if [ $? -eq 0 ]; then
+    TTY="-ti"
+fi;
+
+exec docker run --rm ${TTY} \
     -v ${PWD}:${PWD} \
     -w ${PWD} \
     ruby:2-alpine $@

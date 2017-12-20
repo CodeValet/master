@@ -1,8 +1,11 @@
-IMAGE_PREFIX="rtyler/codevalet"
+IMAGE_PREFIX=rtyler/codevalet
 
 all: check plugins master
 
-check: agent-templates
+check: agent-templates validate-plugins
+
+validate-plugins: plugins.yml
+	./scripts/ruby ./scripts/plugins-from-yaml plugins.yml > /dev/null
 
 clean:
 	rm -rf build/
@@ -18,7 +21,7 @@ master: Dockerfile build/git-refs.txt agent-templates
 plugins: ./scripts/build-plugins plugins.txt builder
 	./scripts/build-plugins
 
-build/git-refs.txt:
+build/git-refs.txt: plugins
 	./scripts/record-sha1sums
 ###############################################################
 
