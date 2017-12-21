@@ -1,5 +1,4 @@
-FROM nginx:alpine
-USER root
+FROM codevalet/proxy:latest
 
 # Prepare the alpine image with some Jenkins dependencies
 ################################################################################
@@ -10,7 +9,6 @@ RUN apk add --no-cache git \
         bash \
         ttf-dejavu \
         coreutils \
-        supervisor \
         openjdk8-jre && \
             mkdir -p /usr/share/jenkins && \
             curl -sSL https://ci.jenkins.io/job/Core/job/jenkins/job/master/lastSuccessfulBuild/artifact/war/target/linux-jenkins.war  > /usr/share/jenkins/jenkins.war
@@ -19,20 +17,8 @@ RUN apk add --no-cache git \
 
 # Snippet taken from Dockerfile.alpine
 ################################################################################
-ARG user=jenkins
-ARG group=jenkins
-ARG uid=1000
-ARG gid=1000
 ARG http_port=8080
 ARG agent_port=50000
-
-ENV JENKINS_HOME /var/jenkins_home
-ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
-# Jenkins is run with user `jenkins`, uid = 1000
-# If you bind mount a volume from the host or a data container,
-# ensure you use the same uid
-RUN addgroup -g ${gid} ${group} \
-    && adduser -h "$JENKINS_HOME" -u ${uid} -G ${group} -s /bin/bash -D ${user}
 
 # Jenkins home directory is a volume, so configuration and build history
 # can be persisted and survive image upgrades

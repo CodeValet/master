@@ -8,6 +8,11 @@ pipeline {
     }
 
     stages {
+        stage('Test') {
+            steps {
+                sh 'make check'
+            }
+        }
         stage('Create builder') {
             steps {
                 sh 'make builder'
@@ -28,11 +33,6 @@ pipeline {
                 always {
                     archiveArtifacts artifacts: 'build/git-refs.txt', fingerprint: true
                 }
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'make check'
             }
         }
     }

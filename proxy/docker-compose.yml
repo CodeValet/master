@@ -1,0 +1,7 @@
+---
+version: '3'
+services:
+  webapp:
+    image: 'codevalet/proxy:latest'
+    ports:
+      - 8081:80

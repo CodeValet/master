@@ -10,3 +10,11 @@ has since been moved out to allow for more independent iteration on the master
 image itself.
 
 
+== Hacking
+
+=== Prerequisites
+
+* Git
+* GNU/Make
+* Docker
+* Docker Compose
