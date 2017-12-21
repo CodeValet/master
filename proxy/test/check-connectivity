@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+PROXY_URL=http://127.0.0.1:8081/
+
+for i in $(seq 1 5); do
+    curl -sI ${PROXY_URL} 2>&1 > /dev/null
+    if [ $? -ne 0 ]; then
+        sleep 1
+    else
+        exit 0
+    fi;
+done;
+
+# If we get to here without having bailed out, something is wrong
+exit 1

@@ -4,6 +4,7 @@ all: check
 
 check: bats container
 	docker-compose up --remove-orphans -d
+	./test/check-connectivity
 	./bats/bin/bats test/*.bats
 
 bats:
@@ -12,10 +13,13 @@ bats:
 container: Dockerfile nginx.conf supervisord.conf
 	docker build -t $(IMAGE_NAME):latest .
 
+# Whenever the nginx.conf changes, we should down the docker-compose bits just
+# to ensure we come up with something new
 nginx.conf:
 	docker-compose down
 
-clean: ensure-down
+clean:
+	docker-compose down
 	docker rmi $(shell docker images -q -f "reference=$(IMAGE_NAME)")
 	rm -rf bats
 
