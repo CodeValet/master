@@ -17,6 +17,8 @@ RUN apk add --no-cache git \
 
 # Snippet taken from Dockerfile.alpine
 ################################################################################
+ARG user=jenkins
+ARG group=jenkins
 ARG http_port=8080
 ARG agent_port=50000
 
