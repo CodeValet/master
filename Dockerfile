@@ -71,15 +71,3 @@ RUN date > /usr/share/jenkins/ref/userContent/builtOn.txt
 ADD build/git-refs.txt /usr/share/jenkins/ref/userContent
 RUN for f in /usr/share/jenkins/ref/userContent/*.txt; do mv $f $f.override ; done
 ################################################################################
-
-
-# Prepare the nginx instance itself
-################################################################################
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-################################################################################
-
-# Prepare the supervisor script to run nginx and Jenkins inside the container
-################################################################################
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-CMD /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
-################################################################################
