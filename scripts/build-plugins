@@ -4,7 +4,6 @@ BUILD_DIR=$PWD/build
 REPOS_DIR=$BUILD_DIR/repos
 SCRIPTS_DIR=$(realpath $(dirname $0))
 PLUGINS_OUTPUT_DIR=$BUILD_DIR/plugins
-BUILDER_CONTAINER="rtyler/codevalet-builder"
 PATH=${SCRIPTS_DIR}:$PATH
 
 mkdir -p $REPOS_DIR

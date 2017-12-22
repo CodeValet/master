@@ -18,7 +18,7 @@ builder: Dockerfile.builder
 	docker build -t ${IMAGE_PREFIX}-$@ -f Dockerfile.$@ .
 
 master: Dockerfile build/git-refs.txt agent-templates proxy
-	docker build -t ${IMAGE_PREFIX}-$@  .
+	docker build -t ${IMAGE_PREFIX}  .
 
 proxy:
 	$(MAKE) -C proxy container

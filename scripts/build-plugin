@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BUILDER_CONTAINER="rtyler/codevalet-builder"
+BUILDER_CONTAINER="codevalet/master-builder"
 
 if [ "${1}" = "" ]; then
   echo "The path to a plugin must be passed as the first argument";
