@@ -1,4 +1,4 @@
-IMAGE_PREFIX=rtyler/codevalet
+IMAGE_PREFIX=codevalet/master
 
 all: check plugins master
 
