@@ -39,6 +39,8 @@ RUN curl -fsSL https://github.com/krallin/tini/releases/download/v${TINI_VERSION
   && echo "$TINI_SHA  /bin/tini" | sha256sum -c -
 
 ENV JENKINS_UC https://updates.jenkins.io
+ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
+
 RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
 
 # for main web interface:
