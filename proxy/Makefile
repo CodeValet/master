@@ -12,10 +12,10 @@ container: Dockerfile nginx.conf supervisord.conf
 	docker build -t $(IMAGE_NAME):latest .
 
 clean: $(COMPOSE)
-	$(COMPOSE) down
-	docker rmi $(shell docker images -q -f "reference=$(IMAGE_NAME)")
 	rm -rf bats
 	rm -rf build
+	$(COMPOSE) down
+	docker rmi $(shell docker images -q -f "reference=$(IMAGE_NAME)") || true
 
 
 bats:
