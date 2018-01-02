@@ -36,6 +36,9 @@ fi;
 
 pushd $REPOS_DIR
 
+  # Grab the restricted declarative plugin to disable Scripted Pipeline
+  git clone --depth 1 git://github.com/abayer/restricted-declarative-plugin.git
+
   # Grab the latest datadog plugin from their org (it's not in jenkinsci)
   git clone --depth 1 git://github.com/datadog/jenkins-datadog-plugin.git datadog-plugin
 
