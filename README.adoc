@@ -23,6 +23,7 @@ image itself.
 
 . `docker pull codevalet/master:latest`
 . `docker run -p 8080:80 -e GITHUB_USER=yourgithubname codevalet/master:latest`
+. Navigate to link:http://localhost:8080/blue/pipelines[localhost:8080/blue/pipelines]
 
 ==== Environment Variables
 
@@ -35,3 +36,5 @@ image itself.
 * `AZURE_SUBSCRIPTION_ID` Azure subscription ID for agent provisioning
 * `AZURE_CLIENT_ID` Azure client ID for agent provisioning
 * `AZURE_CLIENT_SECRET` Azure client secret for agent provisioning.
+* `SENTRY_DSN` (_optional_) link:https://sentry.io[Sentry] DSN for sending
+  error logs.
