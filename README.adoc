@@ -18,3 +18,20 @@ image itself.
 * GNU/Make
 * Docker
 * Docker Compose
+
+=== Running locally
+
+. `docker pull codevalet/master:latest`
+. `docker run -p 8080:80 -e GITHUB_USER=yourgithubname codevalet/master:latest`
+
+==== Environment Variables
+
+* `GITHUB_USER` link:https://github.com/[GitHub] user name to grant
+  permissions
+* `CLIENT_ID` (_optional_) custom GitHub OAuth Application Client ID
+* `CLIENT_SECRET` (_optional_) custom GitHub OAuth Application Client Secret
+* `MAX_AGENTS` (_optional_) maximum number of agents (defaults to 2)
+* `AZURE_TENANT_ID` Azure tenant ID for agent provisioning
+* `AZURE_SUBSCRIPTION_ID` Azure subscription ID for agent provisioning
+* `AZURE_CLIENT_ID` Azure client ID for agent provisioning
+* `AZURE_CLIENT_SECRET` Azure client secret for agent provisioning.

@@ -36,8 +36,8 @@ authorization.add(Jenkins.ADMINISTER, 'rtyler')
 
 def realm = new GithubSecurityRealm('https://github.com',           /* GitHub web URI */
                                     'https://api.github.com',       /* GitHub API URI */
-                                    System.env.get('CLIENT_ID') ?: 'f19661554c93f3b11cfe',         /* OAuth Client ID */
-                                    System.env.get('CLIENT_SECRET') ?: '0672e14addb9f41dec11b5da1219017edfc82a58',/* OAuth Client Secret */
+                                    System.env.get('CLIENT_ID') ?: '4e76a9546e5633505ebe',         /* OAuth Client ID */
+                                    System.env.get('CLIENT_SECRET') ?: '3231316e75b5dace3e8e41d8e5367256959c846a',/* OAuth Client Secret */
                                     'read:public_repo,user:email'           /* OAuth permission scopes */
                                     )
 Jenkins.instance.authorizationStrategy = authorization
